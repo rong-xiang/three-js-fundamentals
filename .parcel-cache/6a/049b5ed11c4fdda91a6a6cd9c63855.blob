@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer="" src="4e994e098289151abab5060dbf03ff1e"></script>
+    <title>Rong's Three.js Practice</title>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+  </body>
+</html>

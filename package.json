@@ -1,0 +1,19 @@
+{
+  "name": "three-js-fundamentals",
+  "version": "1.0.0",
+  "description": "Learning Three.js fundamentals and practice",
+  "main": "index.html",
+  "dependencies": {
+    "sass": "^1.32.13",
+    "three": "^0.128.0"
+  },
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "Rong Xiang",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.0.0-nightly.644"
+  }
+}

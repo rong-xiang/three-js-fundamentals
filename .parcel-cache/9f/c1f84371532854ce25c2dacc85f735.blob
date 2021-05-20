@@ -1,0 +1,19 @@
+var _three = require('three');
+console.log('Hello world!');
+// select the canvas element in html
+const canvas = document.querySelector('#canvas');
+// 1) create a WebGLRenderer
+const renderer = new _three.WebGL1Renderer({
+  canvas
+});
+// 2) create a camera
+// define frustrum: 3d space that camera will capture
+const fov = 75;
+// field of view (in degrees for perspective camera)
+const aspect = 2;
+// aspect ratio (default is 300x150 pixels)
+const near = 0.1;
+// space in front of camera that will be rendered
+const far = 5;
+// space in front of camera that will be rendered
+const camera = new _three.PerspectiveCamera(fov, aspect, near, far);
