@@ -1,11 +1,30 @@
+* {
+  margin: 0 auto;
+  box-sizing: border-box;
+}
 html,
 body {
-  margin: 0;
+  height: 100%;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+
+.text {
+  padding: 40px;
+  font-size: 52px;
+  font-family: Helvetica, sans-serif;
+  background-color: rgb(204, 252, 255);
+  width: 50%;
   height: 100%;
 }
 
 canvas {
   height: 100%;
-  width: 100%;
+  width: 50%;
   display: block;
 }
