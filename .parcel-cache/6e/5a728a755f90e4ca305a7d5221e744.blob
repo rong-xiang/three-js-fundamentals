@@ -1,7 +1,0 @@
-var _three = require('three');
-// select the canvas element in html
-const canvas = document.querySelector('#canvas');
-// create a WebGLRenderer
-const renderer = new _three.WebGL1Renderer({
-  canvas
-});
