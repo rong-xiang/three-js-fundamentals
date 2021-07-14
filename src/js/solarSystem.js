@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { ObjectSpaceNormalMap } from 'three';
+import * as dat from 'dat.gui';
 
 // SET UP
 
@@ -8,6 +8,7 @@ const canvas = document.querySelector('canvas');
 const renderer = new THREE.WebGLRenderer({ canvas });
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xf);
+const gui = new dat.GUI();
 
 // camera
 const fov = 90;
@@ -15,7 +16,9 @@ const aspect = 2;
 const near = 0.1;
 const far = 1000;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.z = 20;
+camera.position.set(0, 20, 0);
+camera.up.set(0, 0, 1);
+camera.lookAt(0, 0, 0);
 
 // lighting
 const color = 0xffffff;
@@ -67,10 +70,59 @@ const moonMaterial = new THREE.MeshPhongMaterial({
   color: 0x888888,
   emissive: 0x222222,
 });
+
 const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
 moonMesh.scale.set(0.5, 0.5, 0.5);
 moonOrbit.add(moonMesh);
 objects.push(moonMesh);
+
+// ADD HELPERS
+
+// create a class that will check off both AxesHelper and GridHelper
+class AxesGridHelper {
+  constructor(node, units = 10) {
+    // create and add AxesHelper
+    const axes = new THREE.AxesHelper();
+    axes.material.depthTest = false;
+    axes.renderOrder = 2;
+    node.add(axes);
+
+    // create and add GridHelper
+    const grid = new THREE.GridHelper(units, units);
+    grid.material.depthTest = false;
+    grid.renderOrder = 1;
+    node.add(grid);
+
+    // set properties
+    this.axes = axes;
+    this.grid = grid;
+    this.visible = false; // set default visibility to false
+  }
+
+  // getter and setter
+  get visible() {
+    return this._visible;
+  }
+
+  set visible(v) {
+    this._visible = v;
+    this.grid.visible = v;
+    this.axes.visible = v;
+  }
+}
+
+// create instance of AxesGridHelper for each object and feed into dat.GUI
+function makeAxisGrid(node, label, units) {
+  const helper = new AxesGridHelper(node, units);
+  gui.add(helper, 'visible').name(label);
+}
+
+makeAxisGrid(solarSystem, 'solarSystem', 25);
+makeAxisGrid(sunMesh, 'sunMesh');
+makeAxisGrid(earthOrbit, 'earthOrbit');
+makeAxisGrid(earthMesh, 'earthMesh');
+makeAxisGrid(moonOrbit, 'moonOrbit');
+makeAxisGrid(moonMesh, 'moonMesh');
 
 // RESPONSIVENESS
 function resizeRenderer(renderer) {
@@ -101,7 +153,7 @@ function render(time) {
   objects.forEach((obj, i) => {
     const speed = i * 0.1 + 1;
     const rotation = time * speed;
-    obj.rotation.z = rotation;
+    obj.rotation.y = rotation;
   });
 
   renderer.render(scene, camera);
