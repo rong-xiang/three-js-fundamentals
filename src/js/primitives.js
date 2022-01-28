@@ -1,7 +1,6 @@
 'use strict';
 
 import * as THREE from 'three';
-import { CubeCamera } from 'three';
 
 // PRIMITIVES
 
